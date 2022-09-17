@@ -12,16 +12,12 @@ class UserWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor(element) {
-    try {
-      if (element) {
-        this.element = element;
-      } else {
-        throw new Error('Передан пустой элемент в конструктор класса UserWidget');
-      }
-    } catch(e) {
-      console.log(e);
+    if (!element) {
+      throw new Error('Передан пустой элемент в конструктор класса UserWidget');
     }
+    this.element = element;
   }
+
 
   /**
    * Получает информацию о текущем пользователе

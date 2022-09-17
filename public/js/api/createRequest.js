@@ -18,23 +18,42 @@ const createRequest = (options = {}) => {
   }
 
   if (options.callback) {
+    let err = null;
+    let response = null;
+
     xhr.onload = () => {
-      let err = null;
-      let response = null;
-
-      try {
-        if (xhr.response && xhr.response.success) {
-          response = xhr.response;
-        } else {
-          err = xhr.response;
-        }
-      } catch(e) {
-        err = e;
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        response = xhr.response;
+      } else {
+        alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
       }
-
       options.callback(err, response);
-    };
-  }
+    }
+
+    xhr.onerror = () => {
+      err = xhr.response;
+      options.callback(err, response);
+      alert(`Произошла ошибка во время отправки: ${xhr.status}`);
+    }
+  };
+  // if (options.callback) {
+  //   xhr.onload = () => {
+  //     let err = null;
+  //     let response = null;
+  //
+  //     try {
+  //       if (xhr.response && xhr.response.success) {
+  //         response = xhr.response;
+  //       } else {
+  //         err = xhr.response;
+  //       }
+  //     } catch(e) {
+  //       err = e;
+  //     }
+  //
+  //     options.callback(err, response);
+  //   };
+  // }
 
   xhr.open(options.method, url);
   xhr.send(formData);

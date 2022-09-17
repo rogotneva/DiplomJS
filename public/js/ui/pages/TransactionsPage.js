@@ -22,11 +22,7 @@ class TransactionsPage {
    * Вызывает метод render для отрисовки страницы
    * */
   update() {
-    if (this.lastOptions) {
-      this.render(this.lastOptions);
-    } else {
-      this.render();
-    }
+    this.render(this.lastOptions);
   }
 
   /**
@@ -81,7 +77,6 @@ class TransactionsPage {
       Transaction.remove({"id": id}, (err, response) => {
         if (response && response.success) {
           App.update();
-          this.update();
         }
       })
     }
