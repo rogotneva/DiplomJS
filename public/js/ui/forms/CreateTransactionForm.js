@@ -19,22 +19,26 @@ class CreateTransactionForm extends AsyncForm {
   renderAccountsList() {
     Account.list(null, (err, response) => {
       if (response && response.success) {
+
         if (this.element.id === 'new-income-form') {
           let select = this.element.querySelector('.accounts-select');
-          let options = response.data.map(data => `<option value="${data.id}">${data.name}</option>`);
-
-          select.innerHTML = options.join('');
+          select.innerHTML = response.data.reduce((newArr, currentValue) => {
+            newArr.push(`<option value="${currentValue.id}">${currentValue.name}</option>`);
+            return newArr;
+          }, []);
         }
 
         if (this.element.id === 'new-expense-form') {
           let select = this.element.querySelector('.accounts-select');
-          let options = response.data.map(data => `<option value="${data.id}">${data.name}</option>`);
-
-          select.innerHTML = options.join('');
+          select.innerHTML = response.data.reduce((newArr, currentValue) => {
+            newArr.push(`<option value="${currentValue.id}">${currentValue.name}</option>`);
+            return newArr;
+          }, []);
         }
-      }
-    })
-  }
+
+      };
+    });
+  };
 
   /**
    * Создаёт новую транзакцию (доход или расход)

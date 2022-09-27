@@ -36,24 +36,6 @@ const createRequest = (options = {}) => {
       alert(`Произошла ошибка во время отправки: ${xhr.status}`);
     }
   };
-  // if (options.callback) {
-  //   xhr.onload = () => {
-  //     let err = null;
-  //     let response = null;
-  //
-  //     try {
-  //       if (xhr.response && xhr.response.success) {
-  //         response = xhr.response;
-  //       } else {
-  //         err = xhr.response;
-  //       }
-  //     } catch(e) {
-  //       err = e;
-  //     }
-  //
-  //     options.callback(err, response);
-  //   };
-  // }
 
   xhr.open(options.method, url);
   xhr.send(formData);

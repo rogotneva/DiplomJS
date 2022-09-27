@@ -17,6 +17,16 @@
       "name": "Магазин",
       "user_id": "1",
       "id": "2"
+    },
+    {
+      "name": "Сбербанк",
+      "user_id": "1",
+      "id": "1ymsdfzbl8j4fka6"
+    },
+    {
+      "name": "Тинькофф",
+      "user_id": "1",
+      "id": "1ymsdg6yl8j5bdxr"
     }
   ],
   "transactions": [
