@@ -19,23 +19,11 @@ class CreateTransactionForm extends AsyncForm {
   renderAccountsList() {
     Account.list(null, (err, response) => {
       if (response && response.success) {
-
-        if (this.element.id === 'new-income-form') {
-          let select = this.element.querySelector('.accounts-select');
-          select.innerHTML = response.data.reduce((newArr, currentValue) => {
-            newArr.push(`<option value="${currentValue.id}">${currentValue.name}</option>`);
-            return newArr;
-          }, []);
-        }
-
-        if (this.element.id === 'new-expense-form') {
-          let select = this.element.querySelector('.accounts-select');
-          select.innerHTML = response.data.reduce((newArr, currentValue) => {
-            newArr.push(`<option value="${currentValue.id}">${currentValue.name}</option>`);
-            return newArr;
-          }, []);
-        }
-
+        let select = this.element.querySelector(".accounts-select");
+        select.innerHTML = response.data.reduce((sumValue, currentValue) => {
+          sumValue += `<option value="${currentValue.id}">${currentValue.name}</option>`;
+          return sumValue;
+        }, '');
       };
     });
   };
@@ -49,9 +37,9 @@ class CreateTransactionForm extends AsyncForm {
   onSubmit(data) {
      Transaction.create(data, (err, response) => {
       if (response && response.success) {
-        this.element.reset();
-        App.getModal('newIncome').close();
-        App.getModal('newExpense').close();
+        let type = this.element.querySelector('[name = type]').getAttribute('value');
+        let typeModal = "new" + type[0].toUpperCase() + type.slice(1);
+        App.getModal(typeModal).close();
         App.update();
       }
     });
